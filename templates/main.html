@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>California Housing — ML Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 850px;
+            margin: 45px auto;
+            padding: 20px;
+            color: #222;
+        }
+        h1 { margin-bottom: 5px; }
+        .hint { color: #666; font-size: 14px; }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        label { font-weight: bold; font-size: 14px; }
+        input {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            border: 0;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .primary { background: #3155e7; color: white; }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f3f6fa;
+            border-radius: 5px;
+        }
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <h1>California Housing — ML Predictor</h1>
+    <p class="hint">
+        Enter values and click Predict. The model estimates
+        median house value (in $100,000s).
+    </p>
+
+    <form method="POST" action="/">
+        <div class="grid">
+            <div>
+                <label>MedInc (Median income, $10k units)</label>
+                <input type="number" step="any" name="MedInc" value="8.3" required>
+            </div>
+            <div>
+                <label>HouseAge (years)</label>
+                <input type="number" step="any" name="HouseAge" value="25" required>
+            </div>
+            <div>
+                <label>AveRooms (avg rooms per dwelling)</label>
+                <input type="number" step="any" name="AveRooms" value="6" required>
+            </div>
+            <div>
+                <label>AveBedrms (avg bedrooms per dwelling)</label>
+                <input type="number" step="any" name="AveBedrms" value="1" required>
+            </div>
+            <div>
+                <label>Population (people)</label>
+                <input type="number" step="any" name="Population" value="1200" required>
+            </div>
+            <div>
+                <label>AveOccup (avg occupants per household)</label>
+                <input type="number" step="any" name="AveOccup" value="3" required>
+            </div>
+            <div>
+                <label>Latitude</label>
+                <input type="number" step="any" name="Latitude" value="34.2" required>
+            </div>
+            <div>
+                <label>Longitude</label>
+                <input type="number" step="any" name="Longitude" value="-118.3" required>
+            </div>
+        </div>
+
+        <button type="submit" class="primary">Predict</button>
+        <button type="reset">Reset</button>
+    </form>
+
+    {% if prediction is defined %}
+    <div class="result">
+        <strong>Prediction: {{ "%.3f"|format(prediction) }}</strong>
+    </div>
+    {% endif %}
+</body>
+</html>
